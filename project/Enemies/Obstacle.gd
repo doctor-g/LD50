@@ -5,6 +5,8 @@ extends KinematicBody
 signal explosion_triggered(bonus)
 
 const _ScoreBonus := preload("res://Bonuses/ScoreBonus.tscn")
+const _RegularMaterial := preload("res://Enemies/plain_obstacle.tres")
+const _PointBonusMaterial := preload("res://Enemies/point_bonus_obstacle.tres")
 
 export var direction := Vector3(0,0,1)
 
@@ -13,6 +15,11 @@ export var has_score_bonus := false
 
 ## Base number of points this obstacle is worth when exploded
 export var points := 100
+
+
+func _ready():
+	$CSGBox.material = _PointBonusMaterial if has_score_bonus else _RegularMaterial
+
 
 func _physics_process(delta):
 	# warning-ignore:return_value_discarded

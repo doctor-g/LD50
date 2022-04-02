@@ -1,12 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Enemies/Obstacle.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/point_bonus_obstacle.tres" type="Material" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 0.5, 0.5 )
-
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.564706, 0.215686, 0.635294, 1 )
 
 [node name="Obstacle" type="KinematicBody"]
 collision_layer = 4
@@ -20,7 +18,7 @@ shape = SubResource( 1 )
 width = 1.0
 height = 1.0
 depth = 1.0
-material = SubResource( 2 )
+material = ExtResource( 2 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -0.5, -0.5, -0.5, 1, 1, 1 )
