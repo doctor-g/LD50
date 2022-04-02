@@ -4,7 +4,6 @@ signal generated(group)
 
 const _Obstacle := preload("res://Enemies/Obstacle.tscn")
 const _Group := preload("res://Enemies/ObstacleGroup.tscn")
-const _BASE_SPEED := 0.3
 
 export var radius := 20
 export var initial_wait_time := 1.75
