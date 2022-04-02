@@ -10,6 +10,8 @@ enum _State {
 	DEAD
 }
 
+export var speed := 10.0
+
 var _state = _State.ACTIVE
 
 onready var _animation_player := $AnimationPlayer
@@ -37,7 +39,7 @@ func _physics_process(_delta):
 func _process_movement()->void:
 	var direction2d := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_down", "move_up"))
 	var direction3d := Vector3(direction2d.x, 0, -direction2d.y)
-	var velocity := direction3d * 20
+	var velocity := direction3d * speed
 	# warning-ignore:return_value_discarded
 	move_and_slide(velocity, Vector3.UP)
 

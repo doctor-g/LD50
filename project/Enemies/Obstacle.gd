@@ -10,7 +10,7 @@ const _PointBonusMaterial := preload("res://Enemies/point_bonus_obstacle.tres")
 
 export var direction := Vector3(0,0,1)
 
-export var speed := 1
+export var speed := 1.0
 export var has_score_bonus := false
 
 ## Base number of points this obstacle is worth when exploded

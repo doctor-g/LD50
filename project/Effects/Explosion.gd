@@ -1,8 +1,8 @@
 extends Area
 
 export var max_radius := 4
-export var expand_duration := 0.5
-export var collapse_duration := 0.35
+export var expand_duration := 0.3
+export var collapse_duration := 0.25
 
 onready var _shape : SphereShape = $CollisionShape.shape
 onready var _sphere := $CSGSphere
