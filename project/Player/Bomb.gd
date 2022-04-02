@@ -5,34 +5,75 @@ signal death_animation_completed
 signal explosion_triggered
 
 enum _State {
+	SPAWNING,
+	INVINCIBLE,
 	ACTIVE,
 	EXPLODED,
 	DEAD
 }
 
 export var speed := 10.0
+export var spawn_origin_offset := Vector3(0,50,20)
 
-var _state = _State.ACTIVE
+var _state
 
-onready var _animation_player := $AnimationPlayer
+onready var _tween := $Tween
+onready var _invincibility_timer := $InvincibilityTimer
+onready var _box := $Box
+onready var _dead_timer := $DeadTimer
 
 func _ready():
-	# Because the current animation fiddles with the material, we have to
-	# reset the properties when a new bomb is created.
-	# This may be unnecessary later if something besides material value tweening
-	# is used for animations.
-	_animation_player.play("RESET")
+	_set_state(_State.SPAWNING)
+	
+	var target_location := transform.origin
+	translate(target_location + spawn_origin_offset)
+	_tween.interpolate_property(self, "translation", 
+		target_location + spawn_origin_offset,
+		target_location,
+		1.0,
+		Tween.TRANS_CUBIC, 
+		Tween.EASE_OUT
+	)
+	_tween.start()
+	# warning-ignore:return_value_discarded
+	_tween.connect("tween_completed", self, "_on_spawn_tween_completed", [], CONNECT_ONESHOT)
+
+
+func _on_spawn_tween_completed(_object, _key)->void:
+	_set_state(_State.INVINCIBLE)
+
+
+func _set_state(new_state:int)->void:
+	_state = new_state
+	
+	match new_state:
+		_State.SPAWNING:
+			_change_color(Color.orange)
+			
+		_State.INVINCIBLE:
+			_invincibility_timer.start()
+			
+		_State.ACTIVE:
+			_change_color(Color.aliceblue)
+			
+		_State.DEAD:
+			_change_color(Color.black)
+
+
+func _change_color(color:Color)->void:
+	var material := SpatialMaterial.new()
+	material.albedo_color = color
+	_box.material_override = material
 
 
 func _physics_process(_delta):
-	if _state != _State.ACTIVE:
-		return
-	
-	if Input.is_action_just_pressed("explode"):
-		_state = _State.EXPLODED
-		emit_signal("explosion_triggered")
-		queue_free()
-	else:
+	if _state == _State.ACTIVE:
+		if Input.is_action_just_pressed("explode"):
+			_state = _State.EXPLODED
+			emit_signal("explosion_triggered")
+			queue_free()
+			
+	if _state == _State.ACTIVE or _state == _State.INVINCIBLE:
 		_process_movement()
 
 
@@ -48,12 +89,14 @@ func kill():
 	# You can only kill bombs that are active.
 	if _state == _State.ACTIVE:
 		$DeathSound.play()
-		$Box.material.albedo_color=Color.black
-		_state = _State.DEAD
+		_set_state(_State.DEAD)
 		emit_signal("died")
-		_animation_player.play("die")
+		_dead_timer.start()
 
 
-func _on_AnimationPlayer_animation_finished(anim_name:String):
-	if anim_name == "die":
-		emit_signal("death_animation_completed")
+func _on_InvincibilityTimer_timeout():
+	_set_state(_State.ACTIVE)
+
+
+func _on_DeadTimer_timeout():
+	emit_signal("death_animation_completed")
