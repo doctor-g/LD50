@@ -45,6 +45,7 @@ func _process_movement()->void:
 func kill():
 	# You can only kill bombs that are active.
 	if _state == _State.ACTIVE:
+		$DeathSound.play()
 		$Box.material.albedo_color=Color.black
 		_state = _State.DEAD
 		emit_signal("died")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Bonuses/ScoreBonus.gd" type="Script" id=1]
+[ext_resource path="res://Bonuses/score_bonus.wav" type="AudioStream" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.164706, 0.729412, 0.2, 1 )
@@ -25,5 +26,10 @@ shape = SubResource( 2 )
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -0.25, -0.25, -0.25, 0.5, 0.5, 0.5 )
 
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "SFX"
+
 [connection signal="body_entered" from="." to="." method="_on_ScoreBonus_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="finished" from="PickupSound" to="." method="_on_PickupSound_finished"]
