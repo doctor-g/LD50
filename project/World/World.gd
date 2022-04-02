@@ -10,8 +10,10 @@ var seconds := 0.0
 var _bomb : KinematicBody
 var _chain := false
 var _chain_count := 0
+var _playing := true
 
 onready var _explosions := $Explosions
+onready var _generator := $ObstacleGenerator
 
 
 func _ready():
@@ -19,6 +21,9 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if not _playing:
+		return
+	
 	seconds += _delta
 	emit_signal("seconds_changed", seconds)
 	
@@ -29,15 +34,23 @@ func _physics_process(_delta):
 
 
 func _spawn_bomb():
-	Player.bombs -= 1
-	
-	_bomb = _Bomb.instance()
-	add_child(_bomb)
-	# warning-ignore:return_value_discarded
-	_bomb.connect("death_animation_completed", self, 
-		"_on_Bomb_death_animation_completed")
-	# warning-ignore:return_value_discarded
-	_bomb.connect("explosion_triggered", self, "_on_Bomb_explosion_triggered")
+	if Player.bombs==0:
+		_end_game()
+	else:
+		Player.bombs -= 1
+		_bomb = _Bomb.instance()
+		add_child(_bomb)
+		# warning-ignore:return_value_discarded
+		_bomb.connect("death_animation_completed", self, 
+			"_on_Bomb_death_animation_completed")
+		# warning-ignore:return_value_discarded
+		_bomb.connect("explosion_triggered", self, "_on_Bomb_explosion_triggered")
+
+
+func _end_game()->void:
+	_playing = false
+	_generator.stop()
+	$PopupDialog.show_modal(true)
 
 
 func _on_Bomb_death_animation_completed():
@@ -73,3 +86,8 @@ func _on_ObstacleGenerator_generated(group:Spatial):
 		enemy.set_as_toplevel(true)
 		# warning-ignore:return_value_discarded	
 		enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])
+
+
+func _on_PlayAgainButton_pressed():
+	Player.reset()
+	get_tree().change_scene("res://World/World.tscn")

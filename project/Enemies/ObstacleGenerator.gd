@@ -7,6 +7,8 @@ const _Group := preload("res://Enemies/ObstacleGroup.tscn")
 
 export var radius := 20
 
+onready var _timer := $Timer
+
 
 func _on_Timer_timeout():
 	var group : Spatial = _Group.instance()
@@ -18,3 +20,7 @@ func _on_Timer_timeout():
 	group.speed = 1
 	
 	emit_signal("generated", group)
+
+
+func stop()->void:
+	_timer.stop()
