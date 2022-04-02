@@ -14,3 +14,12 @@ func _physics_process(delta):
 func explode():
 	emit_signal("explosion_triggered")
 	queue_free()
+
+
+func _on_VisibilityNotifier_screen_exited():
+	queue_free()
+
+
+func _on_BombDetectionArea_body_entered(body):
+	# If we hit something on this layer, it must be a bomb, so kill it.
+	body.kill()

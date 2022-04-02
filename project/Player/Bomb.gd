@@ -40,19 +40,15 @@ func _process_movement()->void:
 	var velocity := direction3d * 20
 	# warning-ignore:return_value_discarded
 	move_and_slide(velocity, Vector3.UP)
-	
-	# If we run into anything that is not a StaticBody (not a wall), then die.
-	for i in get_slide_count():
-		var collision := get_slide_collision(i)
-		if not collision.collider is StaticBody:
-			_die()
 
 
-func _die():
-	$Box.material.albedo_color=Color.black
-	_state = _State.DEAD
-	emit_signal("died")
-	_animation_player.play("die")
+func kill():
+	# You can only kill bombs that are active.
+	if _state == _State.ACTIVE:
+		$Box.material.albedo_color=Color.black
+		_state = _State.DEAD
+		emit_signal("died")
+		_animation_player.play("die")
 
 
 func _on_AnimationPlayer_animation_finished(anim_name:String):

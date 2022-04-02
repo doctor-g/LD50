@@ -7,11 +7,11 @@ var _bomb : KinematicBody
 var _chain := false
 
 onready var _explosions := $Explosions
+onready var _enemies := $Enemies
+
 
 func _ready():
 	_spawn_bomb()
-	# warning-ignore:return_value_discarded
-	$Obstacle.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [$Obstacle])
 
 
 func _physics_process(_delta):
@@ -49,3 +49,9 @@ func _blow_up(body:PhysicsBody):
 	_explosions.add_child(explosion)
 	explosion.translate(body.transform.origin)
 	_chain = true
+
+
+func _on_ObstacleGenerator_generated(enemy:Spatial):
+	_enemies.add_child(enemy)
+	# warning-ignore:return_value_discarded
+	enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])

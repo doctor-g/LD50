@@ -34,6 +34,6 @@ func _set_radius(radius:float)->void:
 	_shape.radius = radius
 
 
-func _on_Explosion_body_entered(body:PhysicsBody)->void:
+func _on_Explosion_body_entered(body)->void:
 	if body.has_method("explode"):
 		body.explode()
