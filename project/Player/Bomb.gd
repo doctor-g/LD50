@@ -1,11 +1,12 @@
 extends KinematicBody
 
-# Emitted when this bomb is "killed" without exploding
 signal died
 signal death_animation_completed
+signal explosion_triggered
 
 enum _State {
 	ACTIVE,
+	EXPLODED,
 	DEAD
 }
 
@@ -22,9 +23,18 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if _state == _State.DEAD:
+	if _state != _State.ACTIVE:
 		return
 	
+	if Input.is_action_just_pressed("explode"):
+		_state = _State.EXPLODED
+		emit_signal("explosion_triggered")
+		queue_free()
+	else:
+		_process_movement()
+
+
+func _process_movement()->void:
 	var direction2d := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_down", "move_up"))
 	var direction3d := Vector3(direction2d.x, 0, -direction2d.y)
 	var velocity := direction3d * 20
