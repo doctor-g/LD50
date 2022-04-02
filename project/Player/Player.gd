@@ -35,6 +35,7 @@ func _set_score(value:int)->void:
 	emit_signal("score_changed", score)
 	
 	if score >= next_chain:
+		$ExtendSound.play()
 		_set_bombs(bombs+1)
 		# warning-ignore:narrowing_conversion
 		_set_next_chain(next_chain * 2.5)
