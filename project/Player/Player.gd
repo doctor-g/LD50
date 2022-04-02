@@ -1,6 +1,6 @@
 extends Node
 
-const _DEFAULT_BOMBS := 10
+const _DEFAULT_BOMBS := 5
 const _START_NEXT_CHAIN := 1000
 
 signal bombs_changed(bombs)
@@ -23,8 +23,7 @@ func reset()->void:
 
 
 func _set_bombs(value:int)->void:
-	# TODO: Once the game _can_ end, uncomment this.
-	# assert(value>=0)
+	assert(value>=0)
 	bombs = value
 	emit_signal("bombs_changed", bombs)
 
