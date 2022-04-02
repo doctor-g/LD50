@@ -20,6 +20,11 @@ func _ready():
 	_update_bombs_label(Player.bombs)
 	_update_max_chain_label(Player.max_chain)
 	_update_next_chain_label(Player.next_chain)
+	
+
+func _process(_delta):
+	# "%6.2f" means "Six total places, two after the decimal"
+	_seconds_label.text = "%6.2f" % Player.seconds
 
 
 func _on_Player_score_changed(score):
@@ -29,11 +34,6 @@ func _on_Player_score_changed(score):
 func _on_Player_bombs_changed(bombs):
 	_update_bombs_label(bombs)
 	
-
-func _on_World_seconds_changed(seconds):
-	# "%6.2f" means "Six total places, two after the decimal"
-	_seconds_label.text = "%6.2f" % seconds
-
 
 func _on_Player_max_chain_changed(chain:int)->void:
 	_update_max_chain_label(chain)

@@ -72,6 +72,5 @@ text = "Play(ish) Again"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[connection signal="seconds_changed" from="." to="HUD" method="_on_World_seconds_changed"]
 [connection signal="generated" from="ObstacleGenerator" to="." method="_on_ObstacleGenerator_generated"]
 [connection signal="pressed" from="PopupDialog/PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]

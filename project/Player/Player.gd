@@ -12,13 +12,14 @@ var bombs := _DEFAULT_BOMBS setget _set_bombs
 var score := 0 setget _set_score
 var max_chain := 0 setget _set_max_chain
 var next_chain := _START_NEXT_CHAIN setget _set_next_chain
-
+var seconds := 0.0
 
 func reset()->void:
 	bombs = _DEFAULT_BOMBS
 	score = 0
 	max_chain = 0
 	next_chain = _START_NEXT_CHAIN
+	seconds = 0
 
 
 func _set_bombs(value:int)->void:

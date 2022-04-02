@@ -1,11 +1,7 @@
 extends Spatial
 
-signal seconds_changed(seconds)
-
 const _Bomb := preload("res://Player/Bomb.tscn")
 const _Explosion := preload("res://Effects/Explosion.tscn")
-
-var seconds := 0.0
 
 var _bomb : KinematicBody
 var _chain := false
@@ -24,8 +20,7 @@ func _physics_process(_delta):
 	if not _playing:
 		return
 	
-	seconds += _delta
-	emit_signal("seconds_changed", seconds)
+	Player.seconds += _delta
 	
 	if _chain and _explosions.get_child_count()==0:
 		_chain = false
