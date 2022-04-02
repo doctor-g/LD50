@@ -2,3 +2,5 @@
 
 This is a placeholder README file for my 
 [Ludum Dare 50](https://ldjam.com/events/ludum-dare/50) project.
+
+[Play now!](https://doctor-g.github.io/LD50/)
