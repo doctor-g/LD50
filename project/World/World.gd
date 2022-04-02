@@ -7,7 +7,6 @@ var _bomb : KinematicBody
 var _chain := false
 
 onready var _explosions := $Explosions
-onready var _enemies := $Enemies
 
 
 func _ready():
@@ -51,7 +50,11 @@ func _blow_up(body:PhysicsBody):
 	_chain = true
 
 
-func _on_ObstacleGenerator_generated(enemy:Spatial):
-	_enemies.add_child(enemy)
-	# warning-ignore:return_value_discarded
-	enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])
+func _on_ObstacleGenerator_generated(group:Spatial):
+	add_child(group)
+	for enemy in group.get_children():
+		# Move the enemy to the toplevel so that explosion coordinates
+		# can be properly considered in world coordinates
+		enemy.set_as_toplevel(true)
+		# warning-ignore:return_value_discarded	
+		enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])
