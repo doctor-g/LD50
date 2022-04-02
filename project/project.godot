@@ -14,6 +14,10 @@ config/name="Project"
 run/main_scene="res://World/World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Player="*res://Player/Player.gd"
+
 [input]
 
 move_up={

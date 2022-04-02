@@ -1,10 +1,15 @@
 extends Spatial
 
+signal seconds_changed(seconds)
+
 const _Bomb := preload("res://Player/Bomb.tscn")
 const _Explosion := preload("res://Effects/Explosion.tscn")
 
+var seconds := 0.0
+
 var _bomb : KinematicBody
 var _chain := false
+var _chain_count := 0
 
 onready var _explosions := $Explosions
 
@@ -14,12 +19,18 @@ func _ready():
 
 
 func _physics_process(_delta):
+	seconds += _delta
+	emit_signal("seconds_changed", seconds)
+	
 	if _chain and _explosions.get_child_count()==0:
-		_chain = 0
+		_chain = false
+		_chain_count = 0
 		_spawn_bomb()
 
 
 func _spawn_bomb():
+	Player.bombs -= 1
+	
 	_bomb = _Bomb.instance()
 	add_child(_bomb)
 	# warning-ignore:return_value_discarded
@@ -40,6 +51,7 @@ func _on_Bomb_explosion_triggered():
 
 func _on_Obstacle_explosion_triggered(obstacle:PhysicsBody):
 	_blow_up(obstacle)
+	Player.score += obstacle.points
 	
 
 func _blow_up(body:PhysicsBody):
@@ -48,6 +60,9 @@ func _blow_up(body:PhysicsBody):
 	_explosions.add_child(explosion)
 	explosion.translate(body.transform.origin)
 	_chain = true
+	_chain_count += 1
+	if _chain_count > Player.max_chain:
+		Player.max_chain = _chain_count
 
 
 func _on_ObstacleGenerator_generated(group:Spatial):

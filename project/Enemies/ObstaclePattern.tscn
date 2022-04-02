@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Position2D
+
+
+func get_translations()->Array:
+	return [
+		Vector2(0,0),
+		$Pos.position,
+		$Pos2.position
+	]
+"
+
+[node name="ObstaclePattern" type="Position2D"]
+script = SubResource( 1 )
+
+[node name="Pos" type="Position2D" parent="."]
+position = Vector2( 2, 2 )
+
+[node name="Pos2" type="Position2D" parent="."]
+position = Vector2( -2, 2 )

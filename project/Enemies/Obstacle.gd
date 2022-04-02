@@ -6,6 +6,9 @@ export var direction := Vector3(0,0,1)
 
 export var speed := 1
 
+## Base number of points this obstacle is worth when exploded
+export var points := 100
+
 func _physics_process(delta):
 	# warning-ignore:return_value_discarded
 	move_and_collide(direction*speed*delta)
