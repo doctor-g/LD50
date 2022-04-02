@@ -20,6 +20,7 @@ Player="*res://Player/Player.gd"
 
 [display]
 
+window/size/width=800
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

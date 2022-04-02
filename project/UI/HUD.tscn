@@ -23,6 +23,7 @@ width = 128
 
 [sub_resource type="StyleBoxTexture" id=4]
 texture = SubResource( 3 )
+region_rect = Rect2( 0, 0, 128, 1 )
 
 [sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0, 0.15, 1 )
@@ -34,6 +35,7 @@ width = 128
 
 [sub_resource type="StyleBoxTexture" id=7]
 texture = SubResource( 6 )
+region_rect = Rect2( 0, 0, 128, 1 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -43,16 +45,15 @@ script = ExtResource( 1 )
 
 [node name="LeftPanel" type="Panel" parent="."]
 anchor_bottom = 1.0
-margin_right = 225.0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 100, 0 )
 custom_styles/panel = SubResource( 4 )
 
 [node name="ScoreText" type="Label" parent="LeftPanel"]
 anchor_right = 1.0
-margin_left = 104.0
-margin_top = 98.0
-margin_right = -46.0
-margin_bottom = 118.0
+margin_left = 8.0
+margin_top = 82.0
+margin_right = -17.0
+margin_bottom = 102.0
 rect_rotation = -90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -61,10 +62,10 @@ align = 2
 
 [node name="ScoreLabel" type="Label" parent="LeftPanel"]
 anchor_right = 1.0
-margin_left = 128.0
-margin_top = 216.0
-margin_right = 103.0
-margin_bottom = 265.0
+margin_left = 37.0
+margin_top = 209.0
+margin_right = 137.0
+margin_bottom = 258.0
 rect_min_size = Vector2( 200, 0 )
 rect_rotation = -90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -73,10 +74,10 @@ align = 2
 
 [node name="NextChainText" type="Label" parent="LeftPanel"]
 anchor_right = 1.0
-margin_left = 109.0
-margin_top = 539.0
-margin_right = -41.0
-margin_bottom = 559.0
+margin_left = 11.0
+margin_top = 456.0
+margin_right = -29.0
+margin_bottom = 476.0
 rect_rotation = -90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -85,10 +86,10 @@ align = 2
 
 [node name="NextChainLabel" type="Label" parent="LeftPanel"]
 anchor_right = 1.0
-margin_left = 136.0
-margin_top = 584.0
-margin_right = 111.0
-margin_bottom = 633.0
+margin_left = 36.0
+margin_top = 592.0
+margin_right = 136.0
+margin_bottom = 641.0
 rect_min_size = Vector2( 200, 0 )
 rect_rotation = -90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -100,15 +101,15 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 100, 0 )
 custom_styles/panel = SubResource( 7 )
 
 [node name="BombsText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 116.0
-margin_top = 42.0
-margin_right = -9.0
-margin_bottom = 62.0
+margin_left = 85.0
+margin_top = 33.0
+margin_right = 60.0
+margin_bottom = 53.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -117,21 +118,20 @@ align = 2
 
 [node name="BombsLabel" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 93.9999
+margin_left = 58.0
 margin_top = 30.0
-margin_right = 94.0
+margin_right = 54.0
 margin_bottom = 79.0
-rect_min_size = Vector2( 200, 0 )
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "10"
 
 [node name="MaxChainText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 119.0
-margin_top = 167.0
-margin_right = 38.9999
-margin_bottom = 187.0
+margin_left = 94.0
+margin_top = 192.0
+margin_right = 114.0
+margin_bottom = 212.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -140,10 +140,10 @@ align = 2
 
 [node name="MaxChainLabel" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 81.0
-margin_top = 205.0
-margin_right = -69.0
-margin_bottom = 306.0
+margin_left = 61.0
+margin_top = 232.0
+margin_right = 11.0
+margin_bottom = 333.0
 rect_min_size = Vector2( 50, 0 )
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -152,10 +152,10 @@ text = "0
 
 [node name="SecondsText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 113.0
-margin_top = 442.0
-margin_right = 33.0
-margin_bottom = 462.0
+margin_left = 93.0
+margin_top = 519.0
+margin_right = 53.0
+margin_bottom = 539.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -164,10 +164,11 @@ align = 2
 
 [node name="SecondsLabel" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 78.0
-margin_top = 416.0
-margin_right = 53.0
-margin_bottom = 465.0
+margin_left = 61.0
+margin_top = 415.0
+margin_right = 87.0
+margin_bottom = 464.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "0"
+align = 2
