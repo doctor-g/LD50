@@ -20,3 +20,6 @@ distance = 12.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0 )
 
 [node name="Explosions" type="Spatial" parent="."]
+__meta__ = {
+"_editor_description_": "Organizing node to hold explosions"
+}
