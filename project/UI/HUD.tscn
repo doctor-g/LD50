@@ -107,9 +107,9 @@ custom_styles/panel = SubResource( 7 )
 [node name="BombsText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
 margin_left = 85.0
-margin_top = 33.0
+margin_top = 38.0
 margin_right = 60.0
-margin_bottom = 53.0
+margin_bottom = 58.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -125,13 +125,14 @@ margin_bottom = 79.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "10"
+align = 1
 
 [node name="MaxChainText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 94.0
-margin_top = 192.0
-margin_right = 114.0
-margin_bottom = 212.0
+margin_left = 85.0
+margin_top = 199.0
+margin_right = 105.0
+margin_bottom = 219.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -149,12 +150,13 @@ rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "0
 "
+align = 1
 
 [node name="SecondsText" type="Label" parent="RightPanel"]
 anchor_right = 1.0
-margin_left = 93.0
+margin_left = 85.0
 margin_top = 519.0
-margin_right = 53.0
+margin_right = 45.0
 margin_bottom = 539.0
 rect_rotation = 90.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
