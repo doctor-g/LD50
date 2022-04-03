@@ -86,20 +86,28 @@ margin_right = 27.5
 margin_bottom = -150.0
 text = "Play"
 
-[node name="Label" type="Label" parent="."]
-margin_left = 263.0
-margin_top = 526.0
-margin_right = 539.0
-margin_bottom = 593.0
-custom_colors/font_color = Color( 0.556863, 0.52549, 0.52549, 1 )
-text = "©2022 Paul Gestwicki
-Created for Ludum Dare 50"
-align = 1
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 4 )
 autoplay = true
 bus = "Music"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 75.5
+margin_top = 532.0
+margin_right = 724.5
+margin_bottom = 564.0
+custom_colors/font_color = Color( 0.556863, 0.52549, 0.52549, 1 )
+text = "©2022 Paul Gestwicki"
+align = 1
+
+[node name="Keys1" type="Label" parent="."]
+margin_left = 269.0
+margin_top = 566.0
+margin_right = 525.0
+margin_bottom = 598.0
+custom_colors/font_color = Color( 0.556863, 0.52549, 0.52549, 1 )
+text = "WASD+Z or Arrows+Space"
+align = 1
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
