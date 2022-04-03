@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/MajorMonoDisplay-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Screens/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Screens/menu.tres" type="Theme" id=3]
 [ext_resource path="res://Screens/title.ogg" type="AudioStream" id=4]
+[ext_resource path="res://UI/Options.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 82
@@ -75,17 +76,6 @@ autoplay = "p_rotation"
 anims/RESET = SubResource( 2 )
 anims/p_rotation = SubResource( 3 )
 
-[node name="PlayButton" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -27.5
-margin_top = -188.0
-margin_right = 27.5
-margin_bottom = -150.0
-text = "Play"
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 4 )
@@ -110,4 +100,65 @@ custom_colors/font_color = Color( 0.556863, 0.52549, 0.52549, 1 )
 text = "WASD+Z or Arrows+Space"
 align = 1
 
-[connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -44.5
+margin_top = 69.0
+margin_right = 44.5
+margin_bottom = 157.0
+custom_constants/separation = 30
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+margin_right = 89.0
+margin_bottom = 42.0
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 89.0
+margin_bottom = 114.0
+text = "Options"
+
+[node name="OptionsDialog" type="PopupDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -135.0
+margin_right = 200.0
+margin_bottom = 215.0
+
+[node name="Label" type="Label" parent="OptionsDialog"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -39.5
+margin_top = 29.0
+margin_right = 39.5
+margin_bottom = 61.0
+text = "Options"
+
+[node name="Options" parent="OptionsDialog" instance=ExtResource( 5 )]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="OkButton" type="Button" parent="OptionsDialog"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.5
+margin_top = -66.0
+margin_right = 20.5
+margin_bottom = -24.0
+text = "OK"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="OptionsDialog/OkButton" to="." method="_on_OkButton_pressed"]
