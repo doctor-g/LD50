@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Enemies/ObstacleGenerator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Bounds.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://World/song.ogg" type="AudioStream" id=6]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/EndGameControl.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemies/ShooterGenerator.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 0.27451, 0.235294, 0.235294, 1 )
@@ -77,4 +78,7 @@ margin_top = -175.0
 margin_right = 200.0
 margin_bottom = 175.0
 
+[node name="ShooterGenerator" parent="." instance=ExtResource( 9 )]
+
 [connection signal="generated" from="ObstacleGenerator" to="." method="_on_ObstacleGenerator_generated"]
+[connection signal="generated" from="ShooterGenerator" to="." method="_on_ShooterGenerator_generated"]

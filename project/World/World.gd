@@ -19,6 +19,7 @@ var _pickup_chain_count := 0
 
 onready var _explosions := $Explosions
 onready var _generator := $ObstacleGenerator
+onready var _shooter_generator := $ShooterGenerator
 onready var _end_game_control := find_node("EndGameControl")
 onready var _pause_menu := find_node("PauseMenu")
 onready var _floating_text_layer := $FloatingTextLayer
@@ -29,7 +30,7 @@ func _ready():
 	
 	# Then start the game as usual
 	_spawn_bomb()
-
+	
 
 func _input(event):
 	if event.is_action_pressed("pause") and _playing:
@@ -66,6 +67,7 @@ func _spawn_bomb():
 func _end_game()->void:
 	_playing = false
 	_generator.stop()
+	_shooter_generator.stop()
 	_end_game_control.update_and_show()
 
 
@@ -86,7 +88,12 @@ func _on_Obstacle_explosion_triggered(bonus:Spatial, obstacle:PhysicsBody):
 		add_child(bonus)
 		# warning-ignore:return_value_discarded
 		bonus.connect("collected", self, "_on_ScoreBonus_collected", [bonus])
-		
+
+
+func _on_Shooter_explosion_triggered(shooter:Spatial)->void:
+	_blow_up(shooter)
+	Player.score += 500
+
 
 func _on_ScoreBonus_collected(bonus:Spatial):
 	_pickup_chain_count += 1
@@ -119,3 +126,8 @@ func _on_ObstacleGenerator_generated(group:Spatial):
 		# warning-ignore:return_value_discarded	
 		enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])
 
+
+
+func _on_ShooterGenerator_generated(shooter:Spatial):
+	shooter.connect("explosion_triggered", self, "_on_Shooter_explosion_triggered", [shooter])
+	add_child(shooter)
