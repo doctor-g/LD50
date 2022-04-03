@@ -12,6 +12,7 @@ export var direction := Vector3(0,0,1)
 
 export var speed := 1.0
 export var has_score_bonus := false
+export var rotation_speed := 3.0
 
 ## Base number of points this obstacle is worth when exploded
 export var points := 100
@@ -22,6 +23,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	$CSGBox.rotate(Vector3.UP, delta*rotation_speed)
 	# warning-ignore:return_value_discarded
 	move_and_collide(direction*speed*delta)
 
