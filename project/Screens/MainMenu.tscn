@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/MajorMonoDisplay-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Screens/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://Screens/menu.tres" type="Theme" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 82
@@ -42,6 +43,7 @@ tracks/0/keys = {
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -73,10 +75,24 @@ anims/RESET = SubResource( 2 )
 anims/p_rotation = SubResource( 3 )
 
 [node name="PlayButton" type="Button" parent="."]
-margin_left = 376.0
-margin_top = 485.0
-margin_right = 414.0
-margin_bottom = 505.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -27.5
+margin_top = -188.0
+margin_right = 27.5
+margin_bottom = -150.0
 text = "Play"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 263.0
+margin_top = 526.0
+margin_right = 539.0
+margin_bottom = 593.0
+custom_colors/font_color = Color( 0.556863, 0.52549, 0.52549, 1 )
+text = "©2022 Paul Gestwicki
+Created for Ludum Dare 50"
+align = 1
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]

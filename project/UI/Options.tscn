@@ -38,9 +38,11 @@ margin_right = 800.0
 margin_bottom = 314.0
 
 [node name="FullscreenToggle" type="CheckButton" parent="."]
+margin_left = 325.0
 margin_top = 318.0
-margin_right = 800.0
+margin_right = 475.0
 margin_bottom = 358.0
+size_flags_horizontal = 4
 text = "Full Screen"
 
 [connection signal="toggled" from="FullscreenToggle" to="." method="_on_FullscreenToggle_toggled"]
