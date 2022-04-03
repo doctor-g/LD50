@@ -82,6 +82,7 @@ func _on_Bomb_explosion_triggered():
 
 func _on_Obstacle_explosion_triggered(bonus:Spatial, obstacle:PhysicsBody):
 	_blow_up(obstacle)
+	Player.score += 100
 	
 	if bonus!=null:
 		bonus.global_transform = obstacle.global_transform
