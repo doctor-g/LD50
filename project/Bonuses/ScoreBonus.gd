@@ -2,7 +2,6 @@ extends Area
 
 signal collected
 
-export var points := 500
 export var speed := 2.0
 
 var _direction : Vector3

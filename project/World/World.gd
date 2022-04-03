@@ -5,9 +5,17 @@ const _Explosion := preload("res://Effects/Explosion.tscn")
 const _FloatingText := preload("res://Bonuses/FloatingText.tscn")
 
 var _bomb : KinematicBody
+
+# Are we processing an explosion chain?
 var _chain := false
+
+# The current number of explosions in the chain
 var _chain_count := 0
+
 var _playing := true
+
+# How many pickups in a row between explosions/deaths
+var _pickup_chain_count := 0
 
 onready var _explosions := $Explosions
 onready var _generator := $ObstacleGenerator
@@ -44,6 +52,7 @@ func _spawn_bomb():
 	if Player.bombs==0:
 		_end_game()
 	else:
+		_pickup_chain_count = 0
 		Player.bombs -= 1
 		_bomb = _Bomb.instance()
 		add_child(_bomb)
@@ -71,7 +80,6 @@ func _on_Bomb_explosion_triggered():
 
 func _on_Obstacle_explosion_triggered(bonus:Spatial, obstacle:PhysicsBody):
 	_blow_up(obstacle)
-	Player.score += obstacle.points
 	
 	if bonus!=null:
 		bonus.global_transform = obstacle.global_transform
@@ -81,10 +89,12 @@ func _on_Obstacle_explosion_triggered(bonus:Spatial, obstacle:PhysicsBody):
 		
 
 func _on_ScoreBonus_collected(bonus:Spatial):
-	Player.score += bonus.points
+	_pickup_chain_count += 1
+	var bonus_points = 300 + 200 * _pickup_chain_count
+	Player.score += bonus_points
 	var pos :Vector2 = $Camera.unproject_position(bonus.transform.origin)
 	var floating_text := _FloatingText.instance()
-	floating_text.text = "+%d" % bonus.points
+	floating_text.text = "+%d" % bonus_points
 	floating_text.transform.origin = pos
 	_floating_text_layer.add_child(floating_text)
 	
