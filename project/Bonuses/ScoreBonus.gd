@@ -1,5 +1,7 @@
 extends Area
 
+signal collected
+
 export var points := 500
 export var speed := 2.0
 
@@ -20,9 +22,9 @@ func _on_VisibilityNotifier_screen_exited():
 	queue_free()
 
 
+# The only thing on the layer this is watching for is the player.
 func _on_ScoreBonus_body_entered(_body):
-	# The only thing on the layer this is watching for is the player.
-	Player.score += points
+	emit_signal("collected")
 	_pickup_sound.play()
 	# Turn off all collisions. Just waiting for sound to finish before freeing.
 	collision_mask = 0

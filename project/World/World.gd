@@ -2,6 +2,7 @@ extends Spatial
 
 const _Bomb := preload("res://Player/Bomb.tscn")
 const _Explosion := preload("res://Effects/Explosion.tscn")
+const _FloatingText := preload("res://Bonuses/FloatingText.tscn")
 
 var _bomb : KinematicBody
 var _chain := false
@@ -10,7 +11,9 @@ var _playing := true
 
 onready var _explosions := $Explosions
 onready var _generator := $ObstacleGenerator
-onready var _end_game_control := $EndGameControl
+onready var _end_game_control := find_node("EndGameControl")
+onready var _pause_menu := find_node("PauseMenu")
+onready var _floating_text_layer := $FloatingTextLayer
 
 
 func _ready():
@@ -22,7 +25,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("pause") and _playing:
-		$PauseMenu.show()
+		_pause_menu.show()
 
 
 func _physics_process(_delta):
@@ -73,6 +76,17 @@ func _on_Obstacle_explosion_triggered(bonus:Spatial, obstacle:PhysicsBody):
 	if bonus!=null:
 		bonus.global_transform = obstacle.global_transform
 		add_child(bonus)
+		# warning-ignore:return_value_discarded
+		bonus.connect("collected", self, "_on_ScoreBonus_collected", [bonus])
+		
+
+func _on_ScoreBonus_collected(bonus:Spatial):
+	Player.score += bonus.points
+	var pos :Vector2 = $Camera.unproject_position(bonus.transform.origin)
+	var floating_text := _FloatingText.instance()
+	floating_text.text = "+%d" % bonus.points
+	floating_text.transform.origin = pos
+	_floating_text_layer.add_child(floating_text)
 	
 
 func _blow_up(body:PhysicsBody):

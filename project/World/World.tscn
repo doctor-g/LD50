@@ -48,7 +48,15 @@ stream = ExtResource( 6 )
 autoplay = true
 bus = "Music"
 
-[node name="PauseMenu" parent="." instance=ExtResource( 7 )]
+[node name="FloatingTextLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="DialogLayer" type="CanvasLayer" parent="."]
+__meta__ = {
+"_editor_description_": "A separate layer for dialog boxes so that they show up over floating text"
+}
+
+[node name="PauseMenu" parent="DialogLayer" instance=ExtResource( 7 )]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -59,7 +67,7 @@ margin_top = -150.0
 margin_right = 200.0
 margin_bottom = 200.0
 
-[node name="EndGameControl" parent="." instance=ExtResource( 8 )]
+[node name="EndGameControl" parent="DialogLayer" instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
