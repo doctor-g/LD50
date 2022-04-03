@@ -1,5 +1,82 @@
-[gd_scene format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/MajorMonoDisplay-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Screens/MainMenu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 82
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/B:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, -1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "p_rotation"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/B:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 0.366022, 0.366022, 0.366022, 0.366022 ),
+"update": 0,
+"values": [ Vector2( 1, -1 ), Vector2( 1, -1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, -1 ) ]
+}
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 272.0
+margin_top = 245.0
+margin_right = 520.0
+margin_bottom = 328.0
+
+[node name="BOM" type="Label" parent="HBoxContainer"]
+margin_right = 183.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 1 )
+text = "bom"
+valign = 1
+
+[node name="B" type="Label" parent="HBoxContainer"]
+margin_left = 187.0
+margin_right = 248.0
+margin_bottom = 83.0
+rect_scale = Vector2( 1, -1 )
+rect_pivot_offset = Vector2( 0, 46.5 )
+custom_fonts/font = SubResource( 1 )
+text = "p"
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "p_rotation"
+anims/RESET = SubResource( 2 )
+anims/p_rotation = SubResource( 3 )
+
+[node name="PlayButton" type="Button" parent="."]
+margin_left = 376.0
+margin_top = 485.0
+margin_right = 414.0
+margin_bottom = 505.0
+text = "Play"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
