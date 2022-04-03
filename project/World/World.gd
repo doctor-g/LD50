@@ -16,6 +16,11 @@ func _ready():
 	_spawn_bomb()
 
 
+func _input(event):
+	if event.is_action_pressed("pause"):
+		$PauseMenu.show()
+
+
 func _physics_process(_delta):
 	if not _playing:
 		return
@@ -90,3 +95,4 @@ func _on_ObstacleGenerator_generated(group:Spatial):
 func _on_PlayAgainButton_pressed():
 	Player.reset()
 	get_tree().change_scene("res://World/World.tscn")
+

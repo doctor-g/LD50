@@ -1,13 +1,49 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Bonuses/ScoreBonus.gd" type="Script" id=1]
 [ext_resource path="res://Bonuses/score_bonus.wav" type="AudioStream" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.164706, 0.729412, 0.2, 1 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="SphereShape" id=2]
 radius = 0.25
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CSGSphere:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "glow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CSGSphere:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1.93187, 0.466517, 0.466517 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
 
 [node name="ScoreBonus" type="Area"]
 collision_layer = 16
@@ -27,6 +63,11 @@ aabb = AABB( -0.25, -0.25, -0.25, 0.5, 0.5, 0.5 )
 [node name="PickupSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 bus = "SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "glow"
+anims/RESET = SubResource( 3 )
+anims/glow = SubResource( 4 )
 
 [connection signal="body_entered" from="." to="." method="_on_ScoreBonus_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

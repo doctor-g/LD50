@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Options.gd" type="Script" id=1]
+[ext_resource path="res://UI/BusSlider.tscn" type="PackedScene" id=2]
+
+[node name="Options" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+script = ExtResource( 1 )
+
+[node name="MusicLabel" type="Label" parent="."]
+margin_top = 242.0
+margin_right = 800.0
+margin_bottom = 256.0
+text = "Music Volume"
+align = 1
+
+[node name="MusicSlider" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 260.0
+margin_right = 800.0
+margin_bottom = 276.0
+
+[node name="SfxLabel" type="Label" parent="."]
+margin_top = 280.0
+margin_right = 800.0
+margin_bottom = 294.0
+text = "Effects Volume"
+align = 1
+
+[node name="SfxSlider" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 298.0
+margin_right = 800.0
+margin_bottom = 314.0
+
+[node name="FullscreenToggle" type="CheckButton" parent="."]
+margin_top = 318.0
+margin_right = 800.0
+margin_bottom = 358.0
+text = "Full Screen"
+
+[connection signal="toggled" from="FullscreenToggle" to="." method="_on_FullscreenToggle_toggled"]
