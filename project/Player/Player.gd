@@ -14,11 +14,12 @@ var max_chain := 0 setget _set_max_chain
 var next_chain := _START_NEXT_CHAIN setget _set_next_chain
 var seconds := 0.0
 
+
 func reset()->void:
-	bombs = _DEFAULT_BOMBS
-	score = 0
-	max_chain = 0
-	next_chain = _START_NEXT_CHAIN
+	_set_bombs(_DEFAULT_BOMBS)
+	_set_score(0)
+	_set_max_chain(0)
+	_set_next_chain(_START_NEXT_CHAIN)
 	seconds = 0
 
 
@@ -41,7 +42,7 @@ func _set_score(value:int)->void:
 	
 	
 func _set_max_chain(value:int)->void:
-	assert(value>0)
+	assert(value>=0)
 	max_chain = value
 	emit_signal("max_chain_changed", max_chain)
 	
