@@ -6,6 +6,12 @@ onready var _bombs_label := find_node("BombsLabel")
 onready var _max_chain_label := find_node("MaxChainLabel")
 onready var _next_chain_label := find_node("NextChainLabel")
 
+onready var _tween := $Tween
+
+export var hud_tween_duration := 0.5
+
+var _score_value := 0
+var _next_chain_value := 1000 # Kludge to prevent animation on level start
 
 func _ready():
 	# warning-ignore:return_value_discarded
@@ -23,12 +29,17 @@ func _ready():
 	
 
 func _process(_delta):
+	_score_label.text = str(_score_value)
+	_next_chain_label.text = str(_next_chain_value)
+	
 	# "%6.2f" means "Six total places, two after the decimal"
 	_seconds_label.text = "%6.2f" % Player.seconds
 
 
 func _on_Player_score_changed(score):
-	_score_label.text = str(score)
+	_tween.interpolate_property(self, "_score_value", 
+		_score_value, score, hud_tween_duration)
+	_tween.start()
 
 
 func _on_Player_bombs_changed(bombs):
@@ -40,7 +51,9 @@ func _on_Player_max_chain_changed(chain:int)->void:
 	
 	
 func _on_Player_next_chain_changed(next:int)->void:
-	_update_next_chain_label(next)
+	_tween.interpolate_property(self, "_next_chain_value", 
+		_next_chain_value, next, hud_tween_duration)
+	_tween.start()
 
 
 func _update_bombs_label(bombs:int)->void:
