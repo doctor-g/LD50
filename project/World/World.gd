@@ -10,14 +10,18 @@ var _playing := true
 
 onready var _explosions := $Explosions
 onready var _generator := $ObstacleGenerator
+onready var _end_game_control := $EndGameControl
 
 
 func _ready():
+	Player.reset()
+	
+	# Then start the game as usual
 	_spawn_bomb()
 
 
 func _input(event):
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") and _playing:
 		$PauseMenu.show()
 
 
@@ -50,7 +54,7 @@ func _spawn_bomb():
 func _end_game()->void:
 	_playing = false
 	_generator.stop()
-	$PopupDialog.show_modal(true)
+	_end_game_control.update_and_show()
 
 
 func _on_Bomb_death_animation_completed():
@@ -90,9 +94,4 @@ func _on_ObstacleGenerator_generated(group:Spatial):
 		enemy.set_as_toplevel(true)
 		# warning-ignore:return_value_discarded	
 		enemy.connect("explosion_triggered", self, "_on_Obstacle_explosion_triggered", [enemy])
-
-
-func _on_PlayAgainButton_pressed():
-	Player.reset()
-	get_tree().change_scene("res://World/World.tscn")
 

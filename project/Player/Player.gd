@@ -1,6 +1,6 @@
 extends Node
 
-const _DEFAULT_BOMBS := 5
+const _DEFAULT_BOMBS := 1
 const _START_NEXT_CHAIN := 1000
 
 signal bombs_changed(bombs)

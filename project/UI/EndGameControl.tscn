@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Screens/menu.tres" type="Theme" id=1]
+[ext_resource path="res://UI/EndGameControl.gd" type="Script" id=2]
+[ext_resource path="res://UI/MajorMonoDisplay-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="EndGameControl" type="PopupDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 24
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 163.0
+margin_right = 760.0
+margin_bottom = 195.0
+text = "Final Score"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+margin_top = 219.0
+margin_right = 760.0
+margin_bottom = 268.0
+custom_fonts/font = SubResource( 1 )
+text = "1234"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_left = 318.0
+margin_top = 292.0
+margin_right = 441.0
+margin_bottom = 396.0
+size_flags_horizontal = 4
+custom_constants/separation = 20
+alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_right = 123.0
+margin_bottom = 42.0
+theme = ExtResource( 1 )
+text = "Play Again"
+
+[node name="MenuButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_top = 62.0
+margin_right = 123.0
+margin_bottom = 104.0
+theme = ExtResource( 1 )
+text = "Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
