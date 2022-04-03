@@ -1,9 +1,9 @@
-# Game for Ludum Dare 50
+# Bomp
 
-This is a placeholder README file for my 
-[Ludum Dare 50](https://ldjam.com/events/ludum-dare/50) project.
+A game created for [Ludum Dare 50](https://ldjam.com/events/ludum-dare/50).
 
-[Play now!](https://doctor-g.github.io/LD50/)
+[Play now on the Web](https://doctor-g.github.io/LD50/) or download one of the
+builds from [the releases page](releases).
 
 ## Third-Party Assets
 
