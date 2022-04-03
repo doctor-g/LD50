@@ -37,7 +37,7 @@ func _set_score(value:int)->void:
 		$ExtendSound.play()
 		_set_bombs(bombs+1)
 		# warning-ignore:narrowing_conversion
-		_set_next_chain(next_chain * 2.5)
+		_set_next_chain(next_chain * 1.5)
 	
 	
 func _set_max_chain(value:int)->void:
